@@ -31,7 +31,7 @@ Se agregó la anotación @Service en las clases que iban a inyectarse, o que son
 
 2. __Complete los operaciones getBluePrint() y getBlueprintsByAuthor(). Implemente todo lo requerido de las capas inferiores (por ahora, el esquema de persistencia disponible 'InMemoryBlueprintPersistence') agregando las pruebas correspondientes en 'InMemoryPersistenceTest'.__  
 
-	Se realizó la implementació correspondiente en el código.
+	Se realizó la implementación correspondiente en el código.
 
 
 
