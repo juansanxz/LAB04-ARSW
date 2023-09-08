@@ -10,6 +10,9 @@ import edu.eci.arsw.blueprints.model.Point;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
 import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.persistence.impl.InMemoryBlueprintPersistence;
+
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
@@ -67,6 +70,47 @@ public class InMemoryPersistenceTest {
         }
                 
         
+    }
+
+    @Test
+    public void getExistingBpByAuthorAndBpNamesTest() throws BlueprintNotFoundException, BlueprintPersistenceException {
+        InMemoryBlueprintPersistence ibpp=new InMemoryBlueprintPersistence();
+
+        Point[] pts=new Point[]{new Point(0, 0),new Point(10, 10)};
+        Blueprint bp=new Blueprint("john", "thepaint",pts);
+
+        ibpp.saveBlueprint(bp);
+
+        assertEquals("Getting a previously stored blueprint returned a different blueprint.",ibpp.getBlueprint("john", "thepaint"), bp);
+
+    }
+
+    @Test
+    public void getExistingBpByAuthorNameTest() throws BlueprintPersistenceException, BlueprintNotFoundException {
+        InMemoryBlueprintPersistence ibpp=new InMemoryBlueprintPersistence();
+
+        Point[] pts=new Point[]{new Point(0, 0),new Point(10, 10)};
+        Blueprint bp=new Blueprint("john", "thepaint",pts);
+
+        ibpp.saveBlueprint(bp);
+
+        Point[] pts2=new Point[]{new Point(21, 30),new Point(10, 10)};
+        Blueprint bp2=new Blueprint("antonio", "firstpaint",pts2);
+
+        ibpp.saveBlueprint(bp2);
+
+        Point[] pts3=new Point[]{new Point(23, 43),new Point(10, 10)};
+        Blueprint bp3=new Blueprint("john", "anotherpaint",pts3);
+
+        ibpp.saveBlueprint(bp3);
+
+        Set<Blueprint> set = new HashSet<>();
+        set.add(bp);
+        set.add(bp3);
+
+
+        assertEquals("Getting a previously stored set of blueprints returned a different set of blueprints.",ibpp.getAuthorBlueprints("john"), set);
+
     }
 
 

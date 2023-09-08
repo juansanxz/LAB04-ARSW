@@ -22,6 +22,7 @@ public class Blueprint {
     }
          
     public Blueprint(String author, String name){
+        this.author = author;
         this.name=name;
         points=new ArrayList<>();
     }
@@ -47,7 +48,7 @@ public class Blueprint {
 
     @Override
     public String toString() {
-        return "Blueprint{" + "author=" + author + ", name=" + name + '}';
+        return "Blueprint{" + "author=" + author + ", name=" + name + ", points=" + points + '}';
     }
 
     @Override
@@ -84,6 +85,10 @@ public class Blueprint {
         }
         
         return true;
+    }
+
+    public void removePoint (int index) {
+        points.remove(index);
     }
     
     

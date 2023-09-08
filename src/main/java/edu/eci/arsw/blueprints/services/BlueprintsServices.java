@@ -8,10 +8,11 @@ package edu.eci.arsw.blueprints.services;
 import edu.eci.arsw.blueprints.model.Blueprint;
 import edu.eci.arsw.blueprints.model.Point;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
+import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.persistence.BlueprintsPersistence;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,13 +25,17 @@ public class BlueprintsServices {
    
     @Autowired
     BlueprintsPersistence bpp;
-    
-    public void addNewBlueprint(Blueprint bp){
 
+    @Autowired
+    BlueprintFilter bpf;
+
+    
+    public void addNewBlueprint(Blueprint bp) throws BlueprintPersistenceException {
+        bpp.saveBlueprint(bp);
     }
     
     public Set<Blueprint> getAllBlueprints(){
-        return null;
+        return  bpp.getAllBlueprints();
     }
     
     /**
@@ -42,11 +47,7 @@ public class BlueprintsServices {
      */
     public Blueprint getBlueprint(String author,String name) throws BlueprintNotFoundException{
         Blueprint bpSearched = null;
-        try {
-            bpSearched = bpp.getBlueprint(author, name);
-        } catch (BlueprintNotFoundException e) {
-            throw e;
-        }
+        bpSearched = bpp.getBlueprint(author, name);
         //throw new UnsupportedOperationException("Not supported yet.");
         return bpSearched;
 
@@ -59,7 +60,21 @@ public class BlueprintsServices {
      * @throws BlueprintNotFoundException if the given author doesn't exist
      */
     public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException{
-        throw new UnsupportedOperationException("Not supported yet."); 
+        Set<Blueprint> blueprintSet = new HashSet<>();
+        blueprintSet = bpp.getAuthorBlueprints(author);
+        return blueprintSet;
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     *
+     * @param bp Blueprint to be filtered
+     * @return the Blueprint filtered
+     */
+    public Blueprint getBlueprintFiltered(Blueprint bp) {
+        Blueprint bpFiltered = bpf.getFilteredBlueprint(bp);
+        bpp.putBlueprintFiltered(bpFiltered);
+        return bpFiltered;
     }
     
 }
