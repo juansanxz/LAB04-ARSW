@@ -4,6 +4,9 @@
 
 # Componentes y conectores - Parte I.
 
+### Santiago Arévalo Rojas
+### Juan Felipe Sánchez Pérez
+
 El ejercicio se debe traer terminado para el siguiente laboratorio (Parte II).
 
 #### Middleware- gestión de planos.
