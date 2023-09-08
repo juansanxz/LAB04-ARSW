@@ -4,6 +4,7 @@
 
 # Componentes y conectores - Parte I.
 
+## Integrantes
 ### Santiago Arévalo Rojas
 ### Juan Felipe Sánchez Pérez
 
